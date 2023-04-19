@@ -50,15 +50,6 @@ namespace Prototype
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(txtMarca.Text) ||
-                    string.IsNullOrEmpty(txtModelo.Text) ||
-                    string.IsNullOrEmpty(txtProcesador.Text) ||
-                    string.IsNullOrEmpty(txtMemoriaRam.Text) ||
-                    string.IsNullOrEmpty(txtAlmacenamiento.Text) ||
-                    string.IsNullOrEmpty(txtSistemaOperativo.Text))
-                {
                     Computadora computadoraEditada = new Computadora
                     {
                         Id = Convert.ToInt32(txtId.Text),
@@ -73,12 +64,7 @@ namespace Prototype
                     DataAccess.EditarComputadora(computadoraEditada);
                     BindGrid();
                     LimpiarFormulario();
-                }
-            }
-            catch (Exception ex)
-            {
-                Response.Write("<script>alert('" + ex.Message + "');</script>");
-            }
+              
         }
 
 
