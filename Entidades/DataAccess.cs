@@ -63,20 +63,20 @@ namespace Entidades
             }
         }
 
-        public static void EditarComputadora(int id, string marca, string modelo, string procesador, int memoriaRam, int almacenamiento, string sistemaOperativo)
+        public static void EditarComputadora(Computadora computadora)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
                 SqlCommand command = new SqlCommand("UPDATE Computadora SET Marca = @Marca, Modelo = @Modelo, Procesador = @Procesador, MemoriaRam = @MemoriaRam, Almacenamiento = @Almacenamiento, SistemaOperativo = @SistemaOperativo WHERE Id = @Id", connection);
-                command.Parameters.AddWithValue("@Marca", marca);
-                command.Parameters.AddWithValue("@Modelo", modelo);
-                command.Parameters.AddWithValue("@Procesador", procesador);
-                command.Parameters.AddWithValue("@MemoriaRam", memoriaRam);
-                command.Parameters.AddWithValue("@Almacenamiento", almacenamiento);
-                command.Parameters.AddWithValue("@SistemaOperativo", sistemaOperativo);
-                command.Parameters.AddWithValue("@Id", id);
+                command.Parameters.AddWithValue("@Marca", computadora.Marca);
+                command.Parameters.AddWithValue("@Modelo", computadora.Modelo);
+                command.Parameters.AddWithValue("@Procesador", computadora.Procesador);
+                command.Parameters.AddWithValue("@MemoriaRam", computadora.MemoriaRam);
+                command.Parameters.AddWithValue("@Almacenamiento", computadora.Almacenamiento);
+                command.Parameters.AddWithValue("@SistemaOperativo", computadora.SistemaOperativo);
+                command.Parameters.AddWithValue("@Id", computadora.Id);
 
                 command.ExecuteNonQuery();
             }

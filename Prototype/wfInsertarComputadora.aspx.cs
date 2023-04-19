@@ -11,7 +11,6 @@ namespace Prototype
 {
     public partial class wfInsertarComputadora : System.Web.UI.Page
     {
-
         private static int ultimoId = 0;
 
         private static List<Computadora> Computadoras { get; set; } = new List<Computadora>();
@@ -26,85 +25,113 @@ namespace Prototype
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            Computadora nuevaComputadora = new Computadora
+            try
             {
-                Marca = txtMarca.Text,
-                Modelo = txtModelo.Text,
-                Procesador = txtProcesador.Text,
-                MemoriaRam = Convert.ToInt32(txtMemoriaRam.Text),
-                Almacenamiento = Convert.ToInt32(txtAlmacenamiento.Text),
-                SistemaOperativo = txtSistemaOperativo.Text
-            };
+                Computadora nuevaComputadora = new Computadora
+                {
+                    Marca = txtMarca.Text,
+                    Modelo = txtModelo.Text,
+                    Procesador = txtProcesador.Text,
+                    MemoriaRam = Convert.ToInt32(txtMemoriaRam.Text),
+                    Almacenamiento = Convert.ToInt32(txtAlmacenamiento.Text),
+                    SistemaOperativo = txtSistemaOperativo.Text
+                };
 
-            DataAccess.AgregarComputadora(nuevaComputadora);
-            Computadoras.Add(nuevaComputadora);
-            BindGrid();
-            LimpiarFormulario();
+                DataAccess.AgregarComputadora(nuevaComputadora);
+                Computadoras.Add(nuevaComputadora);
+                BindGrid();
+                LimpiarFormulario();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
+            }
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             try
             {
-                int memoriaRam;
-                if (int.TryParse(txtMemoriaRam.Text, out memoriaRam))
+                if (string.IsNullOrEmpty(txtMarca.Text) ||
+                    string.IsNullOrEmpty(txtModelo.Text) ||
+                    string.IsNullOrEmpty(txtProcesador.Text) ||
+                    string.IsNullOrEmpty(txtMemoriaRam.Text) ||
+                    string.IsNullOrEmpty(txtAlmacenamiento.Text) ||
+                    string.IsNullOrEmpty(txtSistemaOperativo.Text))
                 {
-                    int almacenamiento = Convert.ToInt32(txtAlmacenamiento.Text);
+                    Computadora computadoraEditada = new Computadora
+                    {
+                        Id = Convert.ToInt32(txtId.Text),
+                        Marca = txtMarca.Text,
+                        Modelo = txtModelo.Text,
+                        Procesador = txtProcesador.Text,
+                        MemoriaRam = Convert.ToInt32(txtMemoriaRam.Text),
+                        Almacenamiento = Convert.ToInt32(txtAlmacenamiento.Text),
+                        SistemaOperativo = txtSistemaOperativo.Text
+                    };
 
-                    DataAccess.EditarComputadora(Convert.ToInt32(hfId.Value), txtMarca.Text, txtModelo.Text, txtProcesador.Text, memoriaRam, almacenamiento, txtSistemaOperativo.Text);
-
+                    DataAccess.EditarComputadora(computadoraEditada);
                     BindGrid();
                     LimpiarFormulario();
-                    hfId.Value = "0";
-                    hfModo.Value = "";
-                }
-                else
-                {
-                    // Mostrar mensaje de error al usuario
                 }
             }
-            catch (FormatException ex)
+            catch (Exception ex)
             {
-                // Mostrar mensaje de error al usuario
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
         }
+
 
         protected void btnClonar_Click(object sender, EventArgs e)
         {
-            int index = Convert.ToInt32((sender as Button).CommandArgument);
-            Computadora computadoraOriginal = Computadoras[index];
-
-            if (computadoraOriginal != null)
+            try
             {
-                Computadora computadoraClonada = new Computadora
-                {
-                    Id = ++ultimoId,
-                    Marca = computadoraOriginal.Marca,
-                    Modelo = computadoraOriginal.Modelo,
-                    Procesador = computadoraOriginal.Procesador,
-                    MemoriaRam = computadoraOriginal.MemoriaRam,
-                    Almacenamiento = computadoraOriginal.Almacenamiento,
-                    SistemaOperativo = computadoraOriginal.SistemaOperativo
-                };
+                int index = Convert.ToInt32((sender as Button).CommandArgument);
+                Computadora computadoraOriginal = Computadoras[index];
 
-                DataAccess.AgregarComputadora(computadoraClonada);
-                Computadoras.Add(computadoraClonada);
-                BindGrid();
+                if (computadoraOriginal != null)
+                {
+                    Computadora computadoraClonada = new Computadora
+                    {
+                        Id = ++ultimoId,
+                        Marca = computadoraOriginal.Marca,
+                        Modelo = computadoraOriginal.Modelo,
+                        Procesador = computadoraOriginal.Procesador,
+                        MemoriaRam = computadoraOriginal.MemoriaRam,
+                        Almacenamiento = computadoraOriginal.Almacenamiento,
+                        SistemaOperativo = computadoraOriginal.SistemaOperativo
+                    };
+
+                    DataAccess.AgregarComputadora(computadoraClonada);
+                    Computadoras.Add(computadoraClonada);
+                    BindGrid();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
         }
 
-
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
-            int index = Convert.ToInt32((sender as Button).CommandArgument);
-            Computadora computadoraAEliminar = Computadoras[index];
-
-            if (computadoraAEliminar != null)
+            try
             {
-                DataAccess.EliminarComputadora(computadoraAEliminar.Id);
-                Computadoras.RemoveAt(index);
-                gvComputadoras.DataSource = Computadoras;
-                gvComputadoras.DataBind();
+                int index = Convert.ToInt32((sender as Button).CommandArgument);
+                Computadora computadoraAEliminar = Computadoras[index];
+
+                if (computadoraAEliminar != null)
+                {
+                    DataAccess.EliminarComputadora(computadoraAEliminar.Id);
+                    Computadoras.RemoveAt(index);
+                    LimpiarFormulario();
+                    gvComputadoras.DataSource = Computadoras;
+                    gvComputadoras.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
         }
 
@@ -114,6 +141,7 @@ namespace Prototype
             int index = Convert.ToInt32(btnSeleccionar.CommandArgument);
             GridViewRow row = gvComputadoras.Rows[index];
 
+            txtId.Text = row.Cells[1].Text;
             txtMarca.Text = row.Cells[2].Text;
             txtModelo.Text = row.Cells[3].Text;
             txtProcesador.Text = row.Cells[4].Text;

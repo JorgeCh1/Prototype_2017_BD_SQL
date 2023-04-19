@@ -22,24 +22,27 @@
     <asp:Label ID="lblMemoriaRam" runat="server" Text="Memoria RAM"></asp:Label>
     <asp:TextBox ID="txtMemoriaRam" runat="server"></asp:TextBox>
     <asp:RequiredFieldValidator ID="rfvMemoriaRam" runat="server" ControlToValidate="txtMemoriaRam" ErrorMessage="Campo Memoria RAM está vació" Display="Dynamic" ForeColor="Red" ValidationGroup="AgregarComputadora" />
-    <asp:RangeValidator ID="rvMemoriaRam" runat="server" ControlToValidate="txtMemoriaRam" ErrorMessage="Solo se aceptan números enteros" Display="Dynamic" ForeColor="Red" MinimumValue="1" MaximumValue="999999" Type="Integer" ValidationGroup="AgregarComputadora"  />
-    
+    <asp:RangeValidator ID="rvMemoriaRam" runat="server" ControlToValidate="txtMemoriaRam" ErrorMessage="Solo se aceptan números enteros de 1 a 32768" Display="Dynamic" ForeColor="Red" MinimumValue="1" MaximumValue="32768" Type="Integer" ValidationGroup="AgregarComputadora"  />
+
     <br />
     <asp:Label ID="lblAlmacenamiento" runat="server" Text="Almacenamiento"></asp:Label>
     <asp:TextBox ID="txtAlmacenamiento" runat="server"></asp:TextBox>
     <asp:RequiredFieldValidator ID="rfvAlmacenamiento" runat="server" ControlToValidate="txtAlmacenamiento" ErrorMessage="Campo Almacenamiento está vació" Display="Dynamic" ForeColor="Red" ValidationGroup="AgregarComputadora" />
-    <asp:RangeValidator ID="rvAlmacenamiento" runat="server" ControlToValidate="txtAlmacenamiento" ErrorMessage="Solo se aceptan números enteros" Display="Dynamic" ForeColor="Red" MinimumValue="1" MaximumValue="999999" Type="Integer" ValidationGroup="AgregarComputadora"  />
-    
+    <asp:RangeValidator ID="rvAlmacenamiento" runat="server" ControlToValidate="txtAlmacenamiento" ErrorMessage="Solo se aceptan números enteros de 1 a 1000000" Display="Dynamic" ForeColor="Red" MinimumValue="1" MaximumValue="1000000" Type="Integer" ValidationGroup="AgregarComputadora"  />
+
     <br />
     <asp:Label ID="lblSistemaOperativo" runat="server" Text="Sistema Operativo"></asp:Label>
     <asp:TextBox ID="txtSistemaOperativo" runat="server"></asp:TextBox>
     <asp:RequiredFieldValidator ID="rfvSistemaOperativo" runat="server" ControlToValidate="txtSistemaOperativo" ErrorMessage="Campo Sistema Operativo está vació" Display="Dynamic" ForeColor="Red" ValidationGroup="AgregarComputadora"  />
+
+    <asp:TextBox ID="txtId" runat="server" Visible="false"></asp:TextBox>
 
     <br />
     <asp:Button ID="btnAgregar" runat="server" Text="Agregar" OnClick="btnAgregar_Click" ValidationGroup="AgregarComputadora" />
     
     <br />
     <asp:Button ID="btnEditar" runat="server" Text="Editar" OnClick="btnEditar_Click" ValidationGroup="EditarComputadora" />
+
 
    <asp:GridView ID="gvComputadoras" runat="server" AutoGenerateColumns="False">
        <Columns>
