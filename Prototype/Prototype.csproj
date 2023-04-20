@@ -126,6 +126,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="styles.css" />
     <Content Include="wfInsertarComputadora.aspx" />
+    <Content Include="wfStockComputadora.aspx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -216,6 +217,13 @@
     </Compile>
     <Compile Include="wfInsertarComputadora.aspx.designer.cs">
       <DependentUpon>wfInsertarComputadora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wfStockComputadora.aspx.cs">
+      <DependentUpon>wfStockComputadora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wfStockComputadora.aspx.designer.cs">
+      <DependentUpon>wfStockComputadora.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

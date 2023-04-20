@@ -50,6 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AltaStockDbCommand.cs" />
+    <Compile Include="BajaStockDbCommand.cs" />
+    <Compile Include="DbCommand.cs" />
+    <Compile Include="EmpresaInvoker.cs" />
+    <Compile Include="InsertStock.cs" />
+    <Compile Include="OrdenCommand.cs" />
+    <Compile Include="ProductoReceiver.cs" />
     <Compile Include="Computadora.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,5 +67,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
